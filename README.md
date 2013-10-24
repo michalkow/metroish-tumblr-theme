@@ -25,3 +25,11 @@ I did build it on modified version of Cosmo Bootstrap from Bootswatch - I did mo
 It is first time I worked with Tumbler markup. 
 I didn't manage to implement all the features that it offers, as I don't use/want some of them, but I might add them in the future for others. 
 Feel free to help me and fork it ;)
+
+##License
+
+Metroish theme is released under [MIT license](http://opensource.org/licenses/mit-license.php).
+
+##Credits
+
+Metroish theme was created by [Michał Kowalkowski](http://michalkowalkowski.com). You can contact me at [kowalkowski.michal@gmail.com](mailto:kowalkowski.michal@gmail.com)
