@@ -1,7 +1,10 @@
 #metroish-tumblr-theme
 
-
 Metro style theme for Tumblr build on Bootstrap.
+
+##Install
+
+Go to [Tumblr](http://tumblr.com) > Settings > Your Blog > Customize > Edit HTML and replace code with one in metroish.html file.
 
 ##Features
 

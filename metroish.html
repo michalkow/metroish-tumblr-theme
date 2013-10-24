@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+  <head> 
+    <!-- Metroish Theme created by Michal Kowalkowski [kowalkowski.michal@gmail.com] -->
+    <!-- Static link to my customized bootstrap file -->
+    <link rel="stylesheet" type="text/css" href="http://static.tumblr.com/jfl1u51/s29mv639i/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{block:IndexPage}{Title}{/block:IndexPage}{block:SearchPage}Search results for: {SearchQuery}{/block:SearchPage}{block:PostSummary}{PostSummary}{/block:PostSummary}</title>
+    {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
+    <link rel="shortcut icon" href="{Favicon}" />
+    <link rel="apple-touch-icon" href="{PortraitURL-128}"/>
+    <link rel="alternate" type="application/rss+xml" href="{RSS}" />
+
+    <!-- All the customization stuff -->
+    <meta name="text:Number of Tweets" content="3"/>
+    <meta name="text:Google Analytics ID" content="" />
+    <meta name="text:Disqus Shortname" content="" />
+
+    <meta name="if:Show About Widget" content="1"/>
+    <meta name="if:Show Stuff I Like Widget" content="1"/>
+    <meta name="if:Show Latest Tweets Widget" content="0"/>
+    <meta name="if:Show People I Follow Widget" content="1"/>
+
+    <meta name="if:Alternative Navbar" content="0"/>
+    <meta name="if:Fixed Navbar" content="1"/>
+    <style type="text/css">
+      body {
+        {block:IfFixedNavbar}padding-top: 70px;{/block:IfFixedNavbar}
+        background-color: #eee;
+      }
+
+      #posts {
+        padding-right: 20px;
+      }
+
+      .post {
+        margin-bottom: 20px;
+      }
+
+      .post h2, h5 {
+        margin-top: 0;
+      }
+
+      .post-body {
+        background-color: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .post-icon {
+        background-color: #1ba1e2;
+        color: #fff;
+        font-size: 26px;
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      .post-date {
+        color: #777;
+        padding-top: 10px;
+        text-align: center;
+      }
+
+      .portrait {
+        margin-bottom: 10px;
+      }
+
+      .informations {
+        color: #777;
+      }
+
+      .informations h3 {
+        color: #555;
+      }
+
+      .informations h3:first-child {
+        margin-top: 0;
+      }
+
+      .information {
+        margin-bottom: 20px;
+      }
+
+      .label a {
+        color: #fff;
+      }
+
+      .label a:hover {
+        text-decoration: none;
+      }
+
+      .label:hover {
+        background-color: #1570a6;
+      }
+
+      .caption {
+        display: block;
+        padding-top: 5px;
+      }
+
+      .video {
+        max-width: 100%;
+      }
+
+      .like_and_reblog_buttons .like {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      .like_and_reblog_buttons .reblog {
+        padding-left: 5px;
+      }
+
+      #tweets a div {
+        margin-bottom: 10px;
+      }
+
+      .search {
+        height: 40px;
+      }
+
+      #footer {
+        text-align: center;
+        padding-bottom: 10px;
+      }
+
+      {CustomCSS}
+    </style>
+  </head> 
+  <body>
+  <!-- Navbar -->
+  <nav class="navbar{block:IfAlternativeNavbar} navbar-inverse{/block:IfAlternativeNavbar}{block:IfNotAlternativeNavbar} navbar-default{/block:IfNotAlternativeNavbar}{block:IfFixedNavbar} navbar-fixed-top{/block:IfFixedNavbar}" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">{Title}</a>
+      </div>
+
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          {block:HasPages}{block:Pages}<li><a href="{URL}">{Label}</a></li>{/block:Pages}{/block:HasPages}
+          {block:AskEnabled}<li class="ask"><a href="/ask" class="page"><i class="icon-comment-alt"></i> {AskLabel}</a></li>{/block:AskEnabled}
+          {block:SubmissionsEnabled}<li class="submit"><a href="/submit" class="page"><i class="icon-edit"></i> {SubmitLabel}</a></li>{/block:SubmissionsEnabled}
+          <li class="archive"><a href="/archive"><i class="icon-archive"></i> Archive</a></li>
+          <li class="rss"><a href="{RSS}"><i class="icon-rss"></i> RSS</a></li>
+        </ul>
+          <form class="navbar-form navbar-right" action="/search" method="get">
+            <div class="form-group">
+             <input type="text" name="q" class="form-control search" value="{SearchQuery}" placeholder="Search..."/>
+            </div>
+            <button type="submit" class="btn btn-default"><i class="icon-search"></i></button>
+          </form>
+
+      </div>
+    </div>
+  </nav> 
+  <!-- Main Body -->
+  <div class="container">
+    <div class="row">
+      <!-- Right Side -->
+      <div class="col-sm-9">
+        <div id="posts" class="col-xs-12">
+            {block:SearchPage}
+              <div class="row"><h3>{block:NoSearchResults}Sorry. {/block:NoSearchResults}Found {SearchResultCount} result(s) for "{SearchQuery}".</h3></div>
+            {/block:SearchPage}
+
+            {block:Posts}
+                {block:Text}
+                    <div class="post text row">
+                      <div class="col-xs-1">
+                        <div class="row post-icon"><i class="icon-pencil"></i></div>
+                        <div class="row post-date">{block:Date} {DayOfMonth} {ShortMonth} {Year} {/block:Date}</div>
+                      </div>
+                      <div class="post-body col-xs-11">
+                        {block:Title}
+                            <h2><a href="{Permalink}">{Title}</a></h2>
+                        {/block:Title}
+
+                        {Body}
+
+                {/block:Text}
+
+                {block:Photo}
+                    <div class="post photo row">
+                      <div class="col-xs-1">
+                        <div class="row post-icon"><i class="icon-camera"></i></div>
+                        <div class="row post-date">{block:Date} {DayOfMonth} {ShortMonth} {Year} {/block:Date}</div>
+                      </div>
+                      <div class="post-body col-xs-11">
+                        <img class="img-responsive" src="{PhotoURL-HighRes}" alt="{PhotoAlt}"/>
+
+                        {block:Caption}
+                            <small class="caption">{Caption}</small>
+                        {/block:Caption}
+
+                {/block:Photo}
+
+                {block:Panorama}
+                    <div class="post panorama row">
+                      <div class="col-xs-1">
+                        <div class="row post-icon"><i class="icon-camera"></i></div>
+                        <div class="row post-date">{block:Date} {DayOfMonth} {ShortMonth} {Year} {/block:Date}</div>
+                      </div>
+                      <div class="post-body col-xs-11">
+                        {LinkOpenTag}
+                            <img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
+                        {LinkCloseTag}
+
+                        {block:Caption}
+                            <small class="caption">{Caption}</small>
+                        {/block:Caption}
+
+                {/block:Panorama}
+
+                {block:Photoset}
+                    <div class="post photoset row">
+                      <div class="col-xs-1">
+                        <div class="row post-icon"><i class="icon-camera"></i></div>
+                        <div class="row post-date">{block:Date} {DayOfMonth} {ShortMonth} {Year} {/block:Date}</div>
+                      </div>
+                      <div class="post-body col-xs-11">
+                        {Photoset}
+
+                        {block:Caption}
+                            <small class="caption">{Caption}</small>
+                        {/block:Caption}
+
+                {/block:Photoset}
+
+                {block:Quote}
+                    <div class="post quote row">
+                      <div class="col-xs-1">
+                        <div class="row post-icon"><i class="icon-quote-right"></i></div>
+                        <div class="row post-date">{block:Date} {DayOfMonth} {ShortMonth} {Year} {/block:Date}</div>
+                      </div>
+                      <div class="post-body col-xs-11">
+                        <blockquote>
+                          <p>{Quote}</p>
+                          {block:Source}
+                            <small>{Source}</small>
+                          {/block:Source}
+                        </blockquote>
+
+                {/block:Quote}
+
+                {block:Link}
+                    <div class="post link row">
+                      <div class="col-xs-1">
+                        <div class="row post-icon"><i class="icon-external-link"></i></div>
+                        <div class="row post-date">{block:Date} {DayOfMonth} {ShortMonth} {Year} {/block:Date}</div>
+                      </div>
+                      <div class="post-body col-xs-11">                    
+                        <h5><a href="{URL}" class="link" {Target}>{Name}</a></h5>
+
+                        {block:Description}
+                            <small class="caption">{Description}</small>
+                        {/block:Description}
+
+                {/block:Link}
+
+                {block:Chat}
+                    <div class="post chat row">
+                      <div class="col-xs-1">
+                        <div class="row post-icon"><i class="icon-comments-alt"></i></div>
+                        <div class="row post-date">{block:Date} {DayOfMonth} {ShortMonth} {Year} {/block:Date}</div>
+                      </div>
+                      <div class="post-body col-xs-11">
+                        {block:Title}
+                            <h2><a href="{Permalink}">{Title}</a></h2>
+                        {/block:Title}
+
+                        <div class="chat">
+                            {block:Lines}
+                                <p class="{Alt} user_{UserNumber}">
+                                    {block:Label}
+                                        <strong class="chat-label">{Label}</strong>
+                                    {/block:Label}
+                                    {Line}
+                                </p>
+                            {/block:Lines}
+                        </div>
+
+                {/block:Chat}
+
+                {block:Video}
+                    <div class="post video row">
+                      <div class="col-xs-1">
+                        <div class="row post-icon"><i class="icon-facetime-video"></i></div>
+                        <div class="row post-date">{block:Date} {DayOfMonth} {ShortMonth} {Year} {/block:Date}</div>
+                      </div>
+                      <div class="post-body col-xs-11">                    
+                        <div class="video">{Video-700}<div>
+
+                        {block:Caption}
+                            <small class="caption">{Caption}</small>
+                        {/block:Caption}
+
+                {/block:Video}
+
+                {block:Audio}
+                    <div class="post audio row">
+                      <div class="col-xs-1">
+                        <div class="row post-icon"><i class="icon-volume-up"></i></div>
+                        <div class="row post-date">{block:Date} {DayOfMonth} {ShortMonth} {Year} {/block:Date}</div>
+                      </div>
+                      <div class="post-body col-xs-11">                    
+                        {AudioPlayerGrey}
+
+                        {block:Caption}
+                            <small class="caption">{Caption}</small>
+                        {/block:Caption}
+
+                {/block:Audio}
+
+                    <div class="row">
+                      <div class="col-xs-9 tags">
+                        {block:HasTags}
+                            
+                                {block:Tags}
+                                  <div class="label label-info"><a href="{TagURL}">{Tag}</a></div>
+                                {/block:Tags}
+                      
+                        {/block:HasTags}
+                      </div>
+                      <div class="col-xs-3 like_and_reblog_buttons">
+                            <div class="pull-right reblog">{ReblogButton}</div> 
+                            <div class="pull-right like">{LikeButton}</div>
+                      </div>
+                        {block:IfDisqusShortname}
+                          <div class="col-xs-12">
+                            <div class="comments pull-right">
+                                <a href="{Permalink}#disqus_thread">0 comments</a>
+                            </div>
+                          </div>
+                        {/block:IfDisqusShortname}
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-11 col-md-offset-1">
+                  {block:IfDisqusShortname}{block:Permalink}
+                      <div id="disqus_thread"></div>
+                      <script type="text/javascript" src="http://disqus.com/forums/{text:Disqus Shortname}/embed.js"></script>
+                      <noscript><a href="http://{text:Disqus Shortname}.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+                  {/block:Permalink}{/block:IfDisqusShortname}
+                  </div>
+                </div>
+            {/block:Posts}
+            {block:Pagination}
+                <div class="pagination">
+                    {block:PreviousPage}<span class="previous-page"><a href="{PreviousPage}">&#171; Previous</a></span>{/block:PreviousPage}
+                    {block:NextPage}<span class="next-page"><a href="{NextPage}">Next &#187;</a></span>{/block:NextPage}
+                </div><!-- .pagination -->
+            {/block:Pagination}
+        </div>
+      </div>
+      <!-- Left Side -->
+      <div class="col-sm-3">
+        <div class="row informations">
+          {block:IfShowAboutWidget}
+          <div class="information col-xs-12">
+            {block:Description}
+              <h3>About</h3>
+                <div><img class="portrait" src="{PortraitURL-64}"></div>
+                <div>{Description}</div>
+            {/block:Description}
+          </div>
+          {/block:IfShowAboutWidget}
+          {block:IfShowPeopleIFollowWidget}
+          <div class="information col-xs-12">
+            {block:Following}
+                <h3>Blogs I follow</h3>
+                <div class="row">
+                    {block:Followed}
+                        <div class="col-xs-3"><a href="{FollowedURL}"><img class="img-responsive" src="{FollowedPortraitURL-64}"/></a></div>
+                    {/block:Followed}
+                </div>
+            {/block:Following}
+          </div>
+          {/block:IfShowPeopleIFollowWidget}
+          {block:IfShowStuffILikeWidget}
+          <div class="information col-xs-12">       
+            {block:Likes}
+              <h3>Stuff I like</h3>
+
+              {Likes limit="5" summarize="100" width="150"}
+
+              <a href="http://www.tumblr.com/liked/by/{Name}">
+                  See more stuff I like
+              </a>
+            {/block:Likes}
+          </div>
+          {/block:IfShowStuffILikeWidget}
+          {block:IfShowLatestTweetsWidget}
+          <div class="information col-xs-12">
+            {block:Twitter}
+                <div id="twitter" style="display:none;">
+                    <h3>Latest Tweets</h3>
+
+                    <div id="tweets"></div>
+                    <a class="btn btn-info btn-sm" href="http://twitter.com/{TwitterUsername}"><i class="icon-twitter"></i> Follow Me</a>
+                </div>
+
+                <script type="text/javascript">
+                    function recent_tweets(data) {
+                        for (i=0; i<data.length; i++) {
+                            if (i<{text:Number of Tweets}) {
+                                document.getElementById("tweets").innerHTML = 
+                                    document.getElementById("tweets").innerHTML + 
+                                    '<a href="http://twitter.com/{TwitterUsername}/status/' + 
+                                    data[i].id + '"><div class="content">' + data[i].text + 
+                                    '</div></a>';
+                            }
+                        }
+                        document.getElementById("twitter").style.display = 'block';
+                    }
+                </script>
+            {/block:Twitter}
+
+            {block:Twitter}
+                <script type="text/javascript" src="/tweets.js"></script>
+            {/block:Twitter}
+          </div>
+          {/block:IfShowLatestTweetsWidget}
+        </div>
+      </div>
+    </div>   
+    <!-- Footer -->    
+    <div class="row">
+      <div class="col-xs-12" id="footer">
+        <small>Powered by <a href="http://tumblr.com">Tumblr</a> / Theme created by <a href="http://michalkowalkowski.com">Michal Kowalkowski</a> / Source code at <a href="https://github.com/michalkow/metroish-tumblr-theme">GitHub</a></small>
+      </div>
+    </div>                               
+  </div>
+
+  {block:IfGoogleAnalyticsID}<script type="text/javascript">var gaJsHost=(("https:"==document.location.protocol)?"https://ssl.":"http://www.");document.write(unescape("%3Cscript src='"+gaJsHost+"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try{var pageTracker=_gat._getTracker("{text:Google Analytics ID}");pageTracker._trackPageview()}catch(err){}</script>{block:IfGoogleAnalyticsID}
+
+  {block:IfDisqusShortname}
+      <script type="text/javascript">
+          //<![CDATA[
+          (function() {
+              var links = document.getElementsByTagName('a');
+              var query = '?';
+              for(var i = 0; i < links.length; i++) {
+                  if(links[i].href.indexOf('#disqus_thread') >= 0) {
+                      query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+                  }
+              }
+              document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/{text:Disqus Shortname}/get_num_replies.js' + query + '"></' + 'script>');
+          })();
+          //]]>
+      </script>
+  {/block:IfDisqusShortname}  
+  </body> 
+</html>
